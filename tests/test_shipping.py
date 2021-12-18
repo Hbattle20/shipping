@@ -27,7 +27,37 @@ def test_identify_conveyance_type():
 
 def test_is_urgent():
     assert shipping.pricing.is_urgent("12/16/2021", "12/18/2021") is True
+    assert shipping.pricing.is_urgent("12/16/2021", "12/20/2021") is False
+
+def test_is_dangerous():
+    assert shipping.pricing.is_dangerous("y") is True
+    assert shipping.pricing.is_dangerous("n") is False
+
+
+def test_validate_input():
+    scenarios = []
+    scenarios.append({
+        "customer_name": "John Hunter Battle",
+        "package_description": "HPZ210",
+        "dangerous": "Y",
+        "weight": "11",
+        "volume": "10",
+        "delivery_date": "12/25/2021",
+        "international_destination": "No",
+    })
+    scenarios.append({
+        "customer_name": "White house",
+        "package_description": "12",
+        "dangerous": "354",
+        "weight": "yes",
+        "volume": "test",
+        "delivery_date": "tomorrow",
+        "international_destination": "no",
+    })
+    for senario in scenarios:
+        senario_validated = shipping.pricing.validate_input(senario)
 
 
 
-
+#def test_get_input():
+#    assert shipping.pricing.get_input()
